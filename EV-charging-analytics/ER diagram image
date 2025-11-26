@@ -1,0 +1,7 @@
+ USERS (user_id PK, name, vehicle_type)
+ |
+ CHARGING_SESSIONS (session_id PK, user_id FK, station_id FK, start_time, end_time, energy_kWh, cost)
+ |
+ STATIONS (station_id PK, station_name, location, connector_type, max_power_kW)
+ |
+ PAYMENTS (payment_id PK, session_id FK, amount, method, status)
