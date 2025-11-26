@@ -1,0 +1,52 @@
+-- Most-Used Charging Station
+SELECT station_id, COUNT(*) AS total_sessions
+FROM charging_sessions
+GROUP BY station_id
+ORDER BY total_sessions DESC;
+
+
+-- Peak Charging Hours
+SELECT HOUR(start_time) AS hour, COUNT(*) AS sessions
+FROM charging_sessions
+GROUP BY HOUR(start_time)
+ORDER BY sessions DESC;
+
+
+-- Energy Consumption by City
+SELECT s.location, SUM(c.energy_kWh) AS total_energy
+FROM charging_sessions c
+JOIN stations s ON c.station_id = s.station_id
+GROUP BY s.location;
+
+
+-- Session Duration
+SELECT session_id,
+TIMESTAMPDIFF(MINUTE, start_time, end_time) AS duration_minutes
+FROM charging_sessions;
+
+
+-- Average Cost per kWh
+SELECT AVG(cost / energy_kWh) AS avg_rate
+FROM charging_sessions;
+
+
+-- User Charging Behavior
+SELECT u.name, COUNT(*) AS sessions, SUM(energy_kWh) AS energy_used
+FROM charging_sessions c
+JOIN users u ON c.user_id = u.user_id
+GROUP BY u.user_id;
+
+
+-- Daily Energy Usage Trend
+SELECT DATE(start_time) AS date, SUM(energy_kWh) AS total_energy
+FROM charging_sessions
+GROUP BY DATE(start_time)
+ORDER BY date;
+
+
+--Revenue Per Charging Station
+SELECT s.station_name, SUM(c.cost) AS revenue
+FROM charging_sessions c
+JOIN stations s ON c.station_id = s.station_id
+GROUP BY s.station_id;
+
