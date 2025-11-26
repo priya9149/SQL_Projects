@@ -1,0 +1,25 @@
+--Users
+INSERT INTO users (name, vehicle_type) VALUES
+('Amit Sharma', '4W EV'),
+('Priya Gupta', '2W EV'),
+('Rohit Mehra', '4W EV');
+
+--Stations
+INSERT INTO stations (station_name, location, connector_type, max_power_kW) VALUES
+('GreenCharge-101', 'Delhi', 'CCS', 60),
+('EcoZap-204', 'Gurgaon', 'Type2', 22),
+('ChargeHub-330', 'Noida', 'CCS', 120);
+
+--Charging Sessions
+INSERT INTO charging_sessions (user_id, station_id, start_time, end_time, energy_kWh, cost) VALUES
+(1, 1, '2025-03-10 08:00', '2025-03-10 08:45', 12.5, 180),
+(2, 2, '2025-03-10 09:20', '2025-03-10 10:00', 8.2, 120),
+(1, 3, '2025-03-11 14:10', '2025-03-11 15:00', 20.0, 310),
+(3, 1, '2025-03-11 16:00', '2025-03-11 16:40', 10.1, 150);
+
+--Payments
+INSERT INTO payments (session_id, amount, method, status) VALUES
+(1, 180, 'UPI', 'Success'),
+(2, 120, 'Card', 'Success'),
+(3, 310, 'UPI', 'Success'),
+(4, 150, 'UPI', 'Success');
