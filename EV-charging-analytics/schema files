@@ -1,1 +1,51 @@
+/////Database Schema 
+
+--Create a new database:
+
+CREATE DATABASE ev_charging;
+USE ev_charging;
+
+--Users Table
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    vehicle_type VARCHAR(50)
+);
+
+
+-- Stations Table
+CREATE TABLE stations (
+    station_id INT PRIMARY KEY AUTO_INCREMENT,
+    station_name VARCHAR(100),
+    location VARCHAR(100),
+    connector_type VARCHAR(50),
+    max_power_kW INT
+);
+
+
+-- Charging Sessions Table
+CREATE TABLE charging_sessions (
+    session_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    station_id INT,
+    start_time DATETIME,
+    end_time DATETIME,
+    energy_kWh DECIMAL(10,2),
+    cost DECIMAL(10,2),
+
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (station_id) REFERENCES stations(station_id)
+);
+
+
+-- Payments Table
+CREATE TABLE payments (
+    payment_id INT PRIMARY KEY AUTO_INCREMENT,
+    session_id INT,
+    amount DECIMAL(10,2),
+    method VARCHAR(50),
+    status VARCHAR(50),
+
+    FOREIGN KEY (session_id) REFERENCES charging_sessions(session_id)
+);
 
